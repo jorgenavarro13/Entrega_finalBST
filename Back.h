@@ -7,6 +7,7 @@
 #include <limits>
 #include <string>
 #include "Orden.h"
+#include "Platillo.h"
 using namespace std;
 
 class Back{
@@ -25,8 +26,9 @@ class Back{
 
         int retornaNumeroLineas();
 
-        void cargarOrdenes(Orden ordenes[]);
+        void cargarOrdenes(Orden ordenes[],long int n);
 
+        int llenaArregloPlatillos(Orden ordenes[]  ,Platillo *platillos, long int n);
 
         //Metodos de ordenamiento->
 

@@ -8,7 +8,38 @@
 #include <fstream>
 #include "Back.h"
 #include "Orden.h"
+#include "Platillo.h"
 using namespace std;
+
+
+//Complejidad O(n x P) N=No.Ordenes P=Platillos distintos
+int Back::llenaArregloPlatillos(Orden ordenes[], Platillo * platillos,long int n ){
+    int capacidad=0;
+    cout<<"La capacidad del arreglo es de:"<<capacidad<<endl;
+    for(int i=0; i<n; i++){
+        string platilloActual=ordenes[i].getPlatillo();
+        bool encontrado=false;
+        for(int j=0; j<capacidad; j++){
+            if(platillos[j].getPlatillo()==platilloActual){
+                //Incrementar la cantidad
+                int cantidadActual=platillos[j].getCantidad();
+                Platillo temp(platilloActual,cantidadActual+1);
+                platillos[j]=temp;
+                encontrado=true;
+                break;
+            }
+        }
+        if(!encontrado){
+            //Agregar nuevo platillo
+            Platillo temp(platilloActual,1);
+            platillos[capacidad]=temp;
+            capacidad++;
+        }
+        
+    }
+    return capacidad;
+}
+
 
 int Back::retornaNumeroLineas(){
     ifstream f;
@@ -26,7 +57,7 @@ int Back::retornaNumeroLineas(){
     return nLineas;
 }
 
-void Back::cargarOrdenes(Orden ordenes[]){
+void Back::cargarOrdenes(Orden ordenes[],long int n){
     ifstream f;
     f.open("orders.txt",ios::in);
     if (f.fail()){
@@ -36,7 +67,7 @@ void Back::cargarOrdenes(Orden ordenes[]){
     char cadena[255];
     char copia[256];
 
-    for(int i=0; i<retornaNumeroLineas(); i++){
+    for(int i=0; i<n; i++){
         f.getline(cadena,255);
         strcpy(copia,cadena);
         //Separar los datos por comas
