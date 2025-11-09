@@ -8,6 +8,7 @@
 #include "Orden.h"
 #include "Back.h"
 #include "Platillo.h"
+#include "LinkedPlatillos.h"
 using namespace std;
 
 int main(){
@@ -24,16 +25,21 @@ int main(){
     int capacidad=back.llenaArregloPlatillos(ordenes, platillos, n);
     back.ordenarPorCantidad(platillos,0,capacidad-1); //Ordenamos con quick sort, declarando el TAD a utilizar para su compilación
 
+    LinkedPlatillos lplatillos(platillos[0]);
+    lplatillos.ImprimePlatillos();
+    lplatillos.llenamosLinkedList(platillos,capacidad);
+    lplatillos.ImprimePlatillos();
+    lplatillos.EliminaDuplicados();
+    lplatillos.ImprimePlatillos();
 
-
-    for(int i=0; i<capacidad; i++){
-        cout<<platillos[i].getPlatillo()<<" :"<<platillos[i].getCantidad()<<endl;
-    }
 
     delete[] platillos;
 
     
-
+    /*for(int i=0; i<capacidad; i++){
+        cout<<platillos[i].getPlatillo()<<" :"<<platillos[i].getCantidad()<<endl;
+    }
+    */
     
     /*
 

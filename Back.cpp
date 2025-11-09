@@ -9,7 +9,11 @@
 #include "Back.h"
 #include "Orden.h"
 #include "Platillo.h"
+#include "LinkedPlatillos.h"
 using namespace std;
+
+
+
 
 
 //Complejidad O(n x P) N=No.Ordenes P=Platillos distintos

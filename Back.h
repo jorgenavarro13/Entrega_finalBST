@@ -8,6 +8,7 @@
 #include <string>
 #include "Orden.h"
 #include "Platillo.h"
+#include "LinkedPlatillos.h"
 using namespace std;
 
 class Back{
@@ -29,6 +30,9 @@ class Back{
         void cargarOrdenes(Orden ordenes[],long int n);
 
         int llenaArregloPlatillos(Orden ordenes[]  ,Platillo *platillos, long int n);
+
+
+
 
         // Métodos de ordenamiento genéricos con lambda functions
         
