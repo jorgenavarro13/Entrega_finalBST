@@ -16,16 +16,17 @@ int main(){
     long int n=back.retornaNumeroLineas();
 
     back.cargarOrdenes(ordenes, n);
-    back.ordQuickT<Orden>(ordenes,0,n-1); //Ordenamos con quick sort, declarando el TAD a utilizar para su compilación
+    back.ordenarPorFecha(ordenes,0,n-1); //Ordenamos con quick sort, declarando el TAD a utilizar para su compilación
 
 
     //Creamos un arreglo dinámico temporal de Nuestros platillos, para eficientar el uso de memoria
     Platillo * platillos=new Platillo[n/10];
     int capacidad=back.llenaArregloPlatillos(ordenes, platillos, n);
+    back.ordenarPorCantidad(platillos,0,capacidad-1); //Ordenamos con quick sort, declarando el TAD a utilizar para su compilación
 
-    
 
-    for(int i=0; i<capacidad+3; i++){
+
+    for(int i=0; i<capacidad; i++){
         cout<<platillos[i].getPlatillo()<<" :"<<platillos[i].getCantidad()<<endl;
     }
 

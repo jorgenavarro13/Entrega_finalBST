@@ -12,6 +12,7 @@ using namespace std;
 Orden::Orden(){};
 Orden::~Orden(){};
 
+
 Orden::Orden(char *mes,char* dia, char* hora,char *minuto, char*segundo, char* restaurante, char* platillo,char* precio){
     this->mes=string(mes);
     this->dia=atoi(dia);

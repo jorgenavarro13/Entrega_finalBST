@@ -30,44 +30,49 @@ class Back{
 
         int llenaArregloPlatillos(Orden ordenes[]  ,Platillo *platillos, long int n);
 
-        //Metodos de ordenamiento->
-
-        template <class T>
-        int particionT(T *arreglo,int inicio,int fin){
-            int pivote = arreglo[inicio].getFechaSegundos(); //se trabaja con enteros
+        // Métodos de ordenamiento genéricos con lambda functions
+        
+        template <class T, class KeyExtractor>
+        int particionT(T *arreglo, int inicio, int fin, KeyExtractor getKey) {
+            auto pivote = getKey(arreglo[inicio]);
             int i = inicio;
-            for (int j = inicio + 1; j <= fin; j++){
-                if (arreglo[j].getFechaSegundos() <= pivote){
+            
+            for (int j = inicio + 1; j <= fin; j++) {
+                if (getKey(arreglo[j]) <= pivote) {
                     i++;
-                    //Intercambio
+                    // Intercambio
                     T temp = arreglo[i];
                     arreglo[i] = arreglo[j];
                     arreglo[j] = temp;
                 }
             }
-            //Colocar el pivote en su posicion correcta
+            
+            // Colocar el pivote en su posición correcta
             T temp = arreglo[i];
             arreglo[i] = arreglo[inicio];
             arreglo[inicio] = temp;
             
-            return i; //Indice del pivote
+            return i;
         }
 
-        //Quick Sort
-        //Complejidad: Mejor caso O(nlog).      Caso medio:O(nlogn)     Peor caso:O(n^2)
-        //Complejidad espacial O(logn)
-        //Recibe como parametros el apuntador al arreglo,el indice de inicio y fin
-        // Recibe como parámetros: apuntador al arreglo, índice de inicio y fin.
-        //Cache friendly 
-        template <class T> 
-        void ordQuickT(T *arreglo,int inicio, int fin){
-            if (inicio < fin){
-                int pivote = particionT(arreglo,inicio,fin);
-                
-                //Ordenar el subarreglo a la izquierda y el de la derecha
-                ordQuickT(arreglo,inicio,pivote-1);
-                ordQuickT(arreglo,pivote+1,fin);
+        template <class T, class KeyExtractor>
+        void ordQuickT(T *arreglo, int inicio, int fin, KeyExtractor getKey) {
+            if (inicio < fin) {
+                int pivote = particionT(arreglo, inicio, fin, getKey);
+                ordQuickT(arreglo, inicio, pivote - 1, getKey);
+                ordQuickT(arreglo, pivote + 1, fin, getKey);
             }
+        }
+
+        // Funciones de ayuda para ordenar específicamente Orden y Platillo
+        void ordenarPorFecha(Orden *arreglo, int inicio, int fin) {
+            ordQuickT(arreglo, inicio, fin, 
+                [](Orden& o) { return o.getFechaSegundos(); });
+        }
+
+        void ordenarPorCantidad(Platillo *arreglo, int inicio, int fin) {
+            ordQuickT(arreglo, inicio, fin, 
+                [](Platillo& p) { return p.getCantidad(); });
         }
 
 
