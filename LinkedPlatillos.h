@@ -45,6 +45,8 @@ class LinkedPlatillos{
 
         void llenamosLinkedList(Platillo *platillos, int capacidad);
 
+        int longitudLinkL();
+
         /*
         void Back::llenaLinkedPlatillos(Platillo*platillos,int capacidad, LinkedPlatillos linkedplatillos){
     NodeLPlatillo* temp=linkedplatillos.head;

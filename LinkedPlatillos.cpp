@@ -13,8 +13,9 @@ void LinkedPlatillos::llenamosLinkedList(Platillo *platillos, int capacidad) {
 
 void LinkedPlatillos::ImprimePlatillos(){
         NodeLPlatillo *temp=head;
+        int n=0;
         while(temp!=nullptr){
-            cout<<temp->getPlatillo()<<" :"<<temp->getCantidad()<<endl;
+            cout<<n++<<temp->getPlatillo()<<" :"<<temp->getCantidad()<<endl;
             temp=temp->next;
         }
         cout<<"Terminamos de imprimir correctamente"<<endl;
@@ -25,7 +26,7 @@ void LinkedPlatillos::EliminaDuplicados(){
         while(temp->next!=nullptr){
             if(temp->cantidad==temp->next->cantidad){
                 temp->cantidad+=temp->next->cantidad;
-                temp->platillo+=temp->next->platillo;
+                temp->platillo+=","+temp->next->platillo;
                 NodeLPlatillo *aBorrar=temp->next;
                 temp->next=temp->next->next;
                 delete aBorrar;
@@ -35,3 +36,13 @@ void LinkedPlatillos::EliminaDuplicados(){
 
     }
 }   
+
+int LinkedPlatillos::longitudLinkL(){
+    NodeLPlatillo *temp=head;
+    int i=0;
+    while(temp!=nullptr){
+        i++;
+        temp=temp->next;
+    }
+    return i;
+}

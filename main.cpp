@@ -26,11 +26,10 @@ int main(){
     back.ordenarPorCantidad(platillos,0,capacidad-1); //Ordenamos con quick sort, declarando el TAD a utilizar para su compilación
 
     LinkedPlatillos lplatillos(platillos[0]);
-    lplatillos.ImprimePlatillos();
     lplatillos.llenamosLinkedList(platillos,capacidad);
-    lplatillos.ImprimePlatillos();
     lplatillos.EliminaDuplicados();
     lplatillos.ImprimePlatillos();
+    cout<<lplatillos.longitudLinkL()<<endl;
 
 
     delete[] platillos;
