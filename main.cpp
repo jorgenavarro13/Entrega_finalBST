@@ -31,6 +31,7 @@ int main(){
     lplatillos.llenamosLinkedList(platillos,capacidad);
     lplatillos.ImprimePlatillos();
     lplatillos.EliminaDuplicados();
+    cout<<"\n-------------------DESPUES DE ELIMINAR DUPLICADOS Y AGRUPAR----------------------------\n";
     lplatillos.ImprimePlatillos();
     NodeLPlatillo * node=lplatillos.returnHead();
 

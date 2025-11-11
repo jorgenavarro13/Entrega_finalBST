@@ -36,7 +36,7 @@ TreeNodeP * BSTP::sortedListToBST(NodeLPlatillo* head) {
 void BSTP::Inorden(TreeNodeP * node){
     if (node == nullptr)return;
             Inorden(node->left);
-            cout<<"["<<node->cantidad<<","<<node->platillo<<"]";
+            cout<<node->cantidad<<",";
             Inorden(node->right);
 
 }
@@ -45,7 +45,7 @@ void BSTP::Postorden(TreeNodeP * node){
         if (node == nullptr)return;
         Postorden(node->left);
         Postorden(node->right);
-        cout<<"["<<node->cantidad<<","<<node->platillo<<"]"; // ✅ la raíz se imprime al final
+        cout<<node->cantidad<<","; // ✅ la raíz se imprime al final
 }
 
 void BSTP::imprimirArbol(TreeNodeP * raiz, int espacio=0, int incremento=6) {
@@ -56,7 +56,7 @@ void BSTP::imprimirArbol(TreeNodeP * raiz, int espacio=0, int incremento=6) {
 
     cout << endl;
     for (int i = incremento; i < espacio; i++) cout << " ";
-    cout << "[" << raiz->cantidad << "] " << raiz->platillo << endl;
+    cout << "[" << raiz->cantidad << "," << raiz->platillo << "] "<< endl;
 
     imprimirArbol(raiz->left, espacio);
 }

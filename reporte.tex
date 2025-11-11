@@ -1,0 +1,292 @@
+
+\documentclass{article}
+
+% Idioma y codificación
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+
+
+% Bibliografía
+\usepackage{biblatex}
+\addbibresource{bibliografía.bib} 
+
+
+\title {Actividad Integral de Conceptos Básicos y Algoritmos Fundamentales }
+\author{ Jorge Arturo Montiel Navarro }
+\date{Septiembre 2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introducción}
+Este reporte técnico expone la resolución de la parte inicial de la situación problema \textbf{"Food delivery orders"},  analizando el planteamiento, la solución entregada, los detalles específicos de la implementación a considerar, así como la complejidad espacial y temporal de los algoritmos para la solución.
+
+
+\section{Situación problema}
+
+El problema aborda el procesamiento de un \textbf{conjunto de datos masivo} de órdenes de un servicio de \textit{Food Delivery}. Este  se presenta en un archivo de texto (\texttt{.txt}) y contiene \textbf{aproximadamente 10,000 registros}, presentados de forma desordenada.
+
+Cada línea del archivo representa una orden individual, compuesta por campos que detallan la \textbf{marca temporal} y las \textbf{características de la orden}. Estos incluyen: mes, día, hora, minuto, segundo, el restaurante, el platillo solicitado y el precio de la orden.
+
+El objetivo principal es desarrollar una solución que permita la \textbf{consulta y visualización organizada} de estos datos, ofreciendo al usuario la capacidad de \textbf{filtrar y desplegar los resultados ordenados por intervalos de tiempo definidos}.
+
+
+
+\section{Justificación}
+Desarrollar soluciones de calidad para situaciones como \textbf{"Food delivery"}, es el fundamento de la programación. Y es labor de los desarrolladores plantear propuestas de valor, con soluciones útiles y eficientes que atiendan las necesidades de los clientes.
+
+Para esto se debe desarrollar código claro, mantenible, eficiente y escalable, entrando la complejidad temporal y espacial como factor clave en este proceso.
+\smallskip
+Por ello durante el reporte se hará incapié en  las ventajas del uso de ciertos algoritmos respecto a otras alternativas posibles.
+
+\section{Acercamiento al Problema y Análisis de Estructura}
+Notamos que un patrón en el archivo de texto, el cual contiene el conjunto de datos de órdenes, podemos identificar una estructura regular que facilita su procesamiento:
+
+\begin{enumerate}
+    \item Cada línea del archivo corresponde inequívocamente a una \textbf{orden de \textit{food delivery} específica}.
+    \item Todos los datos dentro del conjunto mantienen un \textbf{orden fijo y consistente} en cada registro.
+    \item La segmentación de los campos es viable mediante el uso de un \textbf{delimitador o carácter específico} que marca el final de cada valor (mes, día, restaurante, precio, etc.).
+\end{enumerate}
+
+Esta visión general de nuestro problema es crucial para el diseño de la función de lectura y la posterior implementación del algoritmo de ordenamiento.
+
+\section{Implementación}
+
+\subsection{Lectura del archivo}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.30\textwidth}
+    Podemos ver en la imagen  como definimos un $ifstream$ es un \textbf{flujo de entrada} que se emplea para leer el contenido de archivos, cuidando su correcta apertura gracias a $(f.fail)$.
+    
+    El primer flujo se utiliza para saber la cantidad de lineas de nuestro archivo. Para su posterior uso en varios métodos.
+  \end{minipage}%
+  \hfill
+  \begin{minipage}{0.55\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{Apertura_archivo.jpg}
+    \caption{Apertura del archivo: \cite{onlinegdb_situacion_problema}}
+    \label{fig:lectura}
+  \end{minipage}
+\end{figure}
+
+
+
+\subsection{Segmentación de datos}
+
+Dada la naturaleza de nuestro texto podemos establecer la separación de segmentos que serán los futuros atributos de nuestro diseño de clase.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.30\textwidth}
+    Para esta segmentación o \textbf{tokenización}, usamos la función \textit{strcpy y strtok} pertenecientes a la librería string.h perteneciente a C++.
+    La primera permite hacer una copia de un arreglo de char dentro de otro, y la segunda poder "tokenizarlo", de acuerdo al segundo parámetro que indica la función.
+    
+  \end{minipage}%
+  \hfill
+  \begin{minipage}{0.55\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{strtok.jpg}
+    \caption{Tokenización: \cite{onlinegdb_situacion_problema}}
+    \label{fig:tokenización}
+  \end{minipage}
+\end{figure}
+Complejidad temporal:O(n)   Complejidad espacial: O(n)
+
+
+\bigskip
+
+\subsection{Implementación de la Clase \texttt{Orden}}
+Para estructurar los datos extraídos de cada registro, se diseñó la clase \textbf{\texttt{Orden}}. Esta clase encapsula  los atributos necesarios cada orden reflejada en el archivo de texto.
+
+\begin{itemize}
+    \item \textbf{Marca Temporal:} \texttt{mes}, \texttt{dia}, \texttt{hora}, \texttt{minuto} y \texttt{segundo}.
+    \item \textbf{Detalles} \texttt{restaurante}, \texttt{orden} y \texttt{precio}.
+\end{itemize}
+
+La inicialización de los objetos se realiza a través de un \textbf{constructor especializado}. Este constructor está diseñado para recibir los campos como apuntadores de cadena (\texttt{char*}) directamente desde el proceso de lectura y \textit{parsing} del archivo. Dentro del constructor, se lleva a cabo el \textbf{procesamiento y la conversión de tipos} de datos, transformando las cadenas de texto en sus formatos internos correspondientes (e.g., conversión a enteros para día, hora y precio), y calculando la marca temporal unificada (\texttt{fechaSegundos}).
+
+Todos estos objetos estan contenidos en un arreglo de tipo $orden$.
+
+\smallskip
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{Herencia (1).png}
+    \caption{Diseño de clase}
+    \label{fig:Clase orden}
+\end{figure}
+
+
+\subsection{Ordenamiento de datos- Quick Sort}
+Registrados los datos junto con sus atributos, podemos ordenarlos en base al atributo creado \texttt{(fechaSegundos)}. Para ello se optó por usar el método de ordenamiento avanzado $Quick-Sort$ por las siguientes razones.
+
+\begin{enumerate}
+    \item Cache friendly, ya que no genera subarreglos, librandonos de ocupar memoria adicional y dando una complejidad espacial de \texttt{O(n)}.
+    
+    \item Debido al diseño este algoritmo y nuestro caso particular de lista desordenada podemos decir que la complejidad temporal para este casó será \texttt{O(nlog(n))}.
+    \smallskip
+    En el peor caso del algoritmo con una arreglo ordenado y una elección crónica del peor pivote este algoritmo puede alcanzar complejidad temporal \texttt{O(n^{2})}
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.30\textwidth}
+    Además debido a que no estamos usando un tipo de dato definido nativamente por C++, y usando conocimientos vistos en clase se implementaron las funciones template. 
+
+    Esto sirve para un manejo correcto de los datos tipo $orden$.
+    
+  \end{minipage}%
+  \hfill
+  \begin{minipage}{0.55\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{quicksort.jpg}
+    \caption{Tokenización: \cite{onlinegdb_situacion_problema}}
+    \label{fig:quicksort}
+  \end{minipage}
+\end{figure}
+
+
+El funcionamiento del algoritmo Quick Sort es sencillo, ya que toma el primer elemento del arreglo como pivote, colocando los datos menores del lado izquierdo y los mayores del lado derecho.
+
+
+\subsection{Impresión de los primeros 10 valores}
+Para la implementación de este requerimiento de la situación problema, simplemente se iteró sobre el arreglo ya ordenado hasta el indice 9 para mostrarlos en pantalla.
+
+Durante esta misma iteración se realizó la entrada de datos a un nuevo archivo llamado \texttt{salida.txt}, mediante la definición de un flujo de salida ofstream.
+
+\medskip
+La implementación de esto tiene una complejidad temporal constante debido a que se limita a un numero constante de pasos independientemente del arreglo y una complejidad espacial constante ya que solo se requiere un espacio de memoria auxiliar fijo y mínimo para los contadores.
+
+
+\subsection{Validación de Entrada del Usuario y Control de Flujo}
+El requerimiento de buscar órdenes dentro de un rango de fechas específico exige la interacción con el usuario para definir los límites de la consulta. Es crucial implementar una validación  de la entrada como medida profiláctica, asegurando la robustez y el funcionamiento correcto del sistema.
+
+Para lograr esto, se implementó un sistema basado en el manejo de excepciones que encapsula las funciones de solicitud de datos: \texttt{preguntaHora()}, \texttt{preguntaDia()} y \texttt{preguntaMes()}.
+
+Este enfoque permite un control de flujo de información eficiente, manejando dos escenarios críticos:
+\begin{enumerate}
+    \item La introducción de datos que \textbf{exceden los rangos válidos} (e.g., día 35, mes 13).
+    \item El intento de ingresar datos en un \textbf{formato incorrecto}, diferente al tipo entero (\texttt{int}) requerido.
+\end{enumerate}
+Al utilizar excepciones, cualquier entrada inválida redirige el flujo del programa, solicitando al usuario una corrección sin interrumpir la ejecución del código.
+
+Estos valores se manejan para dejarnos una variable en segundos correspondiente a la fecha exacta ingresada por el usuario.
+
+La complejidad temporal de este algoritmo es \texttt{O(k)}, siendo k el numero de intentos fallidos que realice el usuario.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{preguntaHora.jpg}
+    \caption{Validación de entrada del usuario}
+    \label{fig:validacion_entrada}
+\end{figure}
+ 
+ \subsection{Búsqueda binaria para índices}
+ Ya con el arreglo ordenado y con las fechas de inicio y fin de búsqueda ingresadas, debemos buscar dónde se localizan estos elementos dentro del arreglo.
+ Para esto se implementó la \textbf{búsqueda binaria}, con el objetivo de encontrar los índices en los que se encuentra la ubicación más aproximada o exacta a la que se requiere.
+
+ Cuidando que para fecha de inicio de busqueda se retorne el valor exacto o el más aproximado para arriba, en cambio para el de fin de búsqueda el más cercano para abajo.
+
+ Es importante mencionar que este tipo de búsqueda es meramente útil en arreglos ordenados con fechas diferentes entre sí y tiene la \textbf{limitante} que solo da como resultado la primera ocurrencia encontrada.
+
+ Este método de busqueda tiene una complejidad temporal \texttt{O(log(n))}, y espacial \texttt{O(1)}.
+ \medskip
+
+ 
+
+ \begin{figure}[H]
+  \centering
+  \begin{minipage}{0.30\textwidth}
+   Aunque también otorga \textbf{ventajas}, como la eliminación de comparaciones innecesarias que sacrifiquen recursos computacionales. 
+ Así como reducir la complejidad temporal de la impresión de los datos a O(k), siendo k el número de elementos a imprimir.
+    
+  \end{minipage}%
+  \hfill
+  \begin{minipage}{0.55\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{busqueda_binaria.jpg}
+    \caption{Busqueda binaria: \cite{onlinegdb_situacion_problema}}
+    \label{fig:busqueda_binaria}
+  \end{minipage}
+\end{figure}
+
+\subsection{Impresión de búsqueda}
+
+Los índices de búsqueda obtenidos de las funciones de búsqueda binaria son usados para la impresión de los resultados en pantalla y la escritura de estos en un archivo de texto que guarde los resultados de la búsqueda.
+
+Para garantizar la operación lógica y el correcto flujo de la \textbf{Búsqueda Binaria} en la localización del rango, se estableció una \textbf{condición de control fundamental}:
+
+\begin{verbatim}
+if (inicioIdx <= finIdx)
+\end{verbatim}
+
+Esta condición asegura que el índice de inicio del rango a buscar (\texttt{inicioIdx}) sea menor o igual al índice final (\texttt{finIdx}). Si la condición no se cumple, implica que el proceso de búsqueda no ha sido exitoso, lo cual puede deberse a dos escenarios principales:
+
+\begin{enumerate}
+    \item El usuario ingresó las fechas de búsqueda en \textbf{orden invertido} (la fecha de inicio es posterior a la fecha de fin).
+    \item El rango de fechas solicitado \textbf{no existe o está fuera de los límites} definidos por el archivo de órdenes.
+\end{enumerate}
+En ambos casos, la condición previene la ejecución de instrucciones erróneas, manteniendo la estabilidad del algoritmo.
+
+\subsection{Guardado}
+El guardado de la búsqueda en un nuevo archivo está ligado a otra condición encapsulada en el método \texttt{preguntaArchivo()}, la cual valida y hace el manejo de excepciones hasta que  el usuario ingrese la clave requerida o de lo contrario, no se realiza la funcionalidad de guardado de búsqueda.
+
+
+
+
+
+\begin{figure}[H]
+  \centering
+  
+ 
+  \begin{minipage}{0.55\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{guardar_busqueda.jpg}
+    \caption{Guardar búsqueda: \cite{onlinegdb_situacion_problema}}
+    \label{fig:guarda_busqueda}
+  \end{minipage}
+   \hfill
+  \begin{minipage}{0.30\textwidth}
+    La complejidad temporal del algoritmo es \texttt{O(k)}, siendo k nuevamente el número de intentos del usuario y una complejidad espacial de \texttt{O(1)} ya que solo almacena variables temporales independientes del tamaño del arreglo.
+  \end{minipage}%
+\end{figure}
+
+Por último se realiza el cierre de todos los flujos de entrada y salida establecidos en el programa. Esta operación de cierre le indica al sistema operativo que se ha terminado de usar el archivo, lo que permite liberar los recursos del sistema asociados con él.
+
+\section{Conclusión}
+El desarrollo de esta primera fase del reto ha reafirmado la importancia crítica de emplear \textbf{métodos de ordenamiento y búsqueda eficientes} en el procesamiento de grandes volúmenes de datos. La gestión cuidadosa de la \textbf{complejidad temporal y espacial} asociada a estos algoritmos es fundamental para asegurar el rendimiento óptimo del sistema.
+
+---
+
+\subsection{Logros y Aplicación de Conceptos}
+La solución implementada cumple con los requerimientos iniciales de la situación problema. Durante este avance, se aplicaron satisfactoriamente conceptos fundamentales cubiertos en el curso:
+\begin{itemize}
+    \item \textbf{Análisis de Complejidad:} Se calcularon y documentaron las complejidades espacial y temporal de las funciones clave.
+    \item \textbf{Estructura de Datos:} Se diseñó la clase \texttt{Orden} para la encapsulación estructurada de los registros.
+    \item \textbf{Algoritmos de Ordenamiento y Búsqueda:} Se implementó y utilizó un algoritmo de ordenamiento ($O(n \log n)$) para preparar la colección y se justificó el uso de la búsqueda binaria para la consulta por rangos.
+\end{itemize}
+
+---
+
+\subsection{Áreas de Mejora y Robustez}
+Si bien la implementación satisface los requerimientos, identificamos posibles \textbf{lagunas de implementación} que deben ser abordadas en futuras entregas. El enfoque en la búsqueda binaria requiere un manejo más robusto de sus casos límite. Se necesita asegurar que la gestión de índices y la validación de entrada del usuario cubran completamente los escenarios donde la búsqueda arroje rangos inválidos o vacíos, consolidando así la robustez general del código.
+
+
+
+\listoffigures
+
+
+\printbibliography
+A lo largo de la redacción de este reporte, se utilizó el Modelo de Lenguaje Gemini para refinamiento del texto y ortografía. 
+
+\cite{Gemini}.
+\end{document}
