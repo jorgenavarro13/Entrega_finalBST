@@ -25,7 +25,6 @@ void LinkedPlatillos::EliminaDuplicados(){
         NodeLPlatillo *temp=head;
         while(temp->next!=nullptr){
             if(temp->cantidad==temp->next->cantidad){
-                temp->cantidad+=temp->next->cantidad;
                 temp->platillo+=","+temp->next->platillo;
                 NodeLPlatillo *aBorrar=temp->next;
                 temp->next=temp->next->next;
@@ -45,4 +44,8 @@ int LinkedPlatillos::longitudLinkL(){
         temp=temp->next;
     }
     return i;
+}
+
+NodeLPlatillo * LinkedPlatillos::returnHead(){
+    return head;
 }

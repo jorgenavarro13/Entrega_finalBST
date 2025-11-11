@@ -9,6 +9,8 @@
 #include "Back.h"
 #include "Platillo.h"
 #include "LinkedPlatillos.h"
+#include "TreeNodeP.h"
+#include "BSTP.h"
 using namespace std;
 
 int main(){
@@ -27,10 +29,20 @@ int main(){
 
     LinkedPlatillos lplatillos(platillos[0]);
     lplatillos.llenamosLinkedList(platillos,capacidad);
+    lplatillos.ImprimePlatillos();
     lplatillos.EliminaDuplicados();
     lplatillos.ImprimePlatillos();
-    cout<<lplatillos.longitudLinkL()<<endl;
+    NodeLPlatillo * node=lplatillos.returnHead();
 
+    BSTP ArbolBinario;
+    ArbolBinario.sortedListToBST(node);
+    ArbolBinario.Inorden(ArbolBinario.cabeza);
+
+    cout<<"\n-------------------POSTORDEN----------------------------\n";
+    ArbolBinario.Postorden(ArbolBinario.cabeza);
+
+    //Funcionalidad oculta
+    //ArbolBinario.imprimirArbol(ArbolBinario.cabeza,0,6);
 
     delete[] platillos;
 
