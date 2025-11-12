@@ -1,3 +1,9 @@
+'''
+El script de python solo sirvio para imprimir el arbol de manera horizontal y verificar que estaba bien construido, ade
+mas de generar el archivo arbol.txt que se adjunta, el cual contiene la misma impresión del árbol que en el main.cpp
+Además elimina errores de impresión que se tenían en el main.cpp (como el 89 que aparecía en la impresión del árbol)'''
+
+#Jorge Arturo Montiel Navarro A01278612
 class Node:
     def __init__(self, value):
         self.value = value
@@ -23,7 +29,7 @@ def printTree(root, prefix="", isLeft=True):
         print(prefix + ("└── " if isLeft else "┌── ") + str(root.value))
         printTree(root.left, prefix + ("    " if isLeft else "│   "), True)
 
-# Datos de ejemplo
+# Datos de el main.cpp, reconstrucción del árbol -> Cualquier duda revisar main.cpp
 inorder = [45,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,
            67,68,69,70,71,72,73,74,75,76,77,78,80,81,82,83,85,86,89]
 postorder = [45,48,50,49,52,53,55,54,51,57,58,60,59,62,63,65,64,61,56,

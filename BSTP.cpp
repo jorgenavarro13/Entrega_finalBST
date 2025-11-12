@@ -41,6 +41,26 @@ void BSTP::Inorden(TreeNodeP * node){
 
 }
 
+void BSTP::llenaArreglo(TreeNodeP* root, int arr[], int &index) {
+    if (root == nullptr) {
+        return;
+    }
+    llenaArreglo(root->left, arr, index);
+    arr[index] = root->cantidad;
+    index++;
+    llenaArreglo(root->right, arr, index);
+}
+
+void BSTP::llenaArregloPostorden(TreeNodeP* root, int arr[], int &index) {
+    if (root == nullptr) {
+        return;
+    }
+    llenaArregloPostorden(root->left, arr, index);
+    llenaArregloPostorden(root->right, arr, index);
+    arr[index] = root->cantidad;
+    index++;
+}
+
 void BSTP::Postorden(TreeNodeP * node){
         if (node == nullptr)return;
         Postorden(node->left);

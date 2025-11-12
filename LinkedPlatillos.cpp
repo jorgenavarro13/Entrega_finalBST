@@ -15,9 +15,10 @@ void LinkedPlatillos::ImprimePlatillos(){
         NodeLPlatillo *temp=head;
         int n=0;
         while(temp!=nullptr){
-            cout<<n++<<temp->getPlatillo()<<" :"<<temp->getCantidad()<<endl;
+            cout<<n++<<".- ["<<temp->getPlatillo()<<"] :"<<temp->getCantidad()<<endl;
             temp=temp->next;
         }
+        delete temp;
         cout<<"Terminamos de imprimir correctamente"<<endl;
     }
 
@@ -43,6 +44,7 @@ int LinkedPlatillos::longitudLinkL(){
         i++;
         temp=temp->next;
     }
+    delete temp;
     return i;
 }
 

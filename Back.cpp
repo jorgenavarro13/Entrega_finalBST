@@ -19,7 +19,6 @@ using namespace std;
 //Complejidad O(n x P) N=No.Ordenes P=Platillos distintos
 int Back::llenaArregloPlatillos(Orden ordenes[], Platillo * platillos,long int n ){
     int capacidad=0;
-    cout<<"La capacidad del arreglo es de:"<<capacidad<<endl;
     for(int i=0; i<n; i++){
         string platilloActual=ordenes[i].getPlatillo();
         bool encontrado=false;

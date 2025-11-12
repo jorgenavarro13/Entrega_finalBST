@@ -19,7 +19,7 @@
 
 \title {Actividad Integral de Conceptos Básicos y Algoritmos Fundamentales }
 \author{ Jorge Arturo Montiel Navarro }
-\date{Septiembre 2025}
+\date{Noviembre 2025}
 
 \begin{document}
 
@@ -46,7 +46,7 @@ Desarrollar soluciones de calidad para situaciones como \textbf{"Food delivery"}
 
 Para esto se debe desarrollar código claro, mantenible, eficiente y escalable, entrando la complejidad temporal y espacial como factor clave en este proceso.
 \smallskip
-Por ello durante el reporte se hará incapié en  las ventajas del uso de ciertos algoritmos respecto a otras alternativas posibles.
+Por ello durante el reporte se hará énfasis en las ventajas del uso de ciertos algoritmos respecto a otras alternativas posibles.
 
 \section{Acercamiento al Problema y Análisis de Estructura}
 Notamos que un patrón en el archivo de texto, el cual contiene el conjunto de datos de órdenes, podemos identificar una estructura regular que facilita su procesamiento:
@@ -60,6 +60,26 @@ Notamos que un patrón en el archivo de texto, el cual contiene el conjunto de d
 Esta visión general de nuestro problema es crucial para el diseño de la función de lectura y la posterior implementación del algoritmo de ordenamiento.
 
 \section{Implementación}
+\subsection{Cómo compilar y ejecutar}
+Para facilitar la entrega, a continuación se muestran los pasos mínimos para compilar y ejecutar el proyecto en un entorno con g++ instalado.
+
+En Windows (PowerShell):
+\begin{verbatim}
+g++ -O2 *.cpp -o program.exe
+.\\program.exe
+\end{verbatim}
+
+En Linux / macOS:
+\begin{verbatim}
+g++ -O2 *.cpp -o program
+./program
+\end{verbatim}
+
+Notas:
+\begin{itemize}
+  \item Compilar con la opción \texttt{-O2} mejora el rendimiento en la carga y ordenamiento de ~10k registros.
+  \item Asegúrate de que \texttt{orders.txt} se encuentre en el directorio de ejecución.
+\end{itemize}
 
 \subsection{Lectura del archivo}
 \begin{figure}[H]
@@ -114,7 +134,7 @@ Para estructurar los datos extraídos de cada registro, se diseñó la clase \te
 
 La inicialización de los objetos se realiza a través de un \textbf{constructor especializado}. Este constructor está diseñado para recibir los campos como apuntadores de cadena (\texttt{char*}) directamente desde el proceso de lectura y \textit{parsing} del archivo. Dentro del constructor, se lleva a cabo el \textbf{procesamiento y la conversión de tipos} de datos, transformando las cadenas de texto en sus formatos internos correspondientes (e.g., conversión a enteros para día, hora y precio), y calculando la marca temporal unificada (\texttt{fechaSegundos}).
 
-Todos estos objetos estan contenidos en un arreglo de tipo $orden$.
+Todos estos objetos están contenidos en un arreglo de tipo \texttt{Orden}.
 
 \smallskip
 
@@ -130,9 +150,9 @@ Todos estos objetos estan contenidos en un arreglo de tipo $orden$.
 Registrados los datos junto con sus atributos, podemos ordenarlos en base al atributo creado \texttt{(fechaSegundos)}. Para ello se optó por usar el método de ordenamiento avanzado $Quick-Sort$ por las siguientes razones.
 
 \begin{enumerate}
-    \item Cache friendly, ya que no genera subarreglos, librandonos de ocupar memoria adicional y dando una complejidad espacial de \texttt{O(n)}.
+  \item Cache friendly, ya que no genera subarreglos, liberándonos de ocupar memoria adicional en muchas implementaciones y entregando una complejidad espacial reducida dependiendo de la recursión.
     
-    \item Debido al diseño este algoritmo y nuestro caso particular de lista desordenada podemos decir que la complejidad temporal para este casó será \texttt{O(nlog(n))}.
+  \item Debido al diseño este algoritmo y nuestro caso particular de lista desordenada podemos decir que la complejidad temporal para este caso será \texttt{O(n\log n)}.
     \smallskip
     En el peor caso del algoritmo con una arreglo ordenado y una elección crónica del peor pivote este algoritmo puede alcanzar complejidad temporal \texttt{O(n^{2})}
 \end{enumerate}
@@ -159,7 +179,7 @@ El funcionamiento del algoritmo Quick Sort es sencillo, ya que toma el primer el
 
 
 \subsection{Impresión de los primeros 10 valores}
-Para la implementación de este requerimiento de la situación problema, simplemente se iteró sobre el arreglo ya ordenado hasta el indice 9 para mostrarlos en pantalla.
+Para la implementación de este requerimiento de la situación problema, simplemente se iteró sobre el arreglo ya ordenado hasta el índice 9 para mostrarlos en pantalla.
 
 Durante esta misma iteración se realizó la entrada de datos a un nuevo archivo llamado \texttt{salida.txt}, mediante la definición de un flujo de salida ofstream.
 
@@ -194,11 +214,11 @@ La complejidad temporal de este algoritmo es \texttt{O(k)}, siendo k el numero d
  Ya con el arreglo ordenado y con las fechas de inicio y fin de búsqueda ingresadas, debemos buscar dónde se localizan estos elementos dentro del arreglo.
  Para esto se implementó la \textbf{búsqueda binaria}, con el objetivo de encontrar los índices en los que se encuentra la ubicación más aproximada o exacta a la que se requiere.
 
- Cuidando que para fecha de inicio de busqueda se retorne el valor exacto o el más aproximado para arriba, en cambio para el de fin de búsqueda el más cercano para abajo.
+  Cuidando que para fecha de inicio de búsqueda se retorne el valor exacto o el más aproximado para arriba, en cambio para el de fin de búsqueda el más cercano para abajo.
 
  Es importante mencionar que este tipo de búsqueda es meramente útil en arreglos ordenados con fechas diferentes entre sí y tiene la \textbf{limitante} que solo da como resultado la primera ocurrencia encontrada.
 
- Este método de busqueda tiene una complejidad temporal \texttt{O(log(n))}, y espacial \texttt{O(1)}.
+  Este método de búsqueda tiene una complejidad temporal \texttt{O(log(n))}, y espacial \texttt{O(1)}.
  \medskip
 
  
@@ -214,7 +234,7 @@ La complejidad temporal de este algoritmo es \texttt{O(k)}, siendo k el numero d
   \begin{minipage}{0.55\textwidth}
     \centering
     \includegraphics[width=\linewidth]{busqueda_binaria.jpg}
-    \caption{Busqueda binaria: \cite{onlinegdb_situacion_problema}}
+  \caption{Búsqueda binaria: \cite{onlinegdb_situacion_problema}}
     \label{fig:busqueda_binaria}
   \end{minipage}
 \end{figure}
