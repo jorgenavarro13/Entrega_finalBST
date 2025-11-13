@@ -1,5 +1,7 @@
 # Sistema de Gestión y Análisis de Órdenes (BST Final Project)
 
+Autor: Jorge Arturo Montiel Navarro 
+
 Este proyecto en C++ implementa un sistema avanzado para la gestión y análisis de un **conjunto de datos masivo** de órdenes de un servicio de *Food Delivery*. La solución se centra en la eficiencia algorítmica para el procesamiento, ordenamiento, y búsqueda de registros, además de la construcción de una estructura de datos balanceada (Árbol Binario de Búsqueda) a partir de los datos procesados.
 
 ## 1. Estructura del Proyecto

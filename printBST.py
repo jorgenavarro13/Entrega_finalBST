@@ -1,7 +1,6 @@
 '''
-El script de python solo sirvio para imprimir el arbol de manera horizontal y verificar que estaba bien construido, ade
-mas de generar el archivo arbol.txt que se adjunta, el cual contiene la misma impresión del árbol que en el main.cpp
-Además elimina errores de impresión que se tenían en el main.cpp (como el 89 que aparecía en la impresión del árbol)'''
+El script de python solo para generar arbol.txt que se adjunta, el cual contiene la misma impresión del árbol que en el main.cpp
+Se opto por python debido al uso de caracteres especiales para la impresión del árbol.'''
 
 #Jorge Arturo Montiel Navarro A01278612
 class Node:

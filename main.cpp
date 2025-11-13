@@ -15,6 +15,7 @@
 using namespace std;
 
 int main(){
+    //PRIMERA ENTREGA FINAL BST
     Back back;
     Orden ordenes[11000]; //Arreglo estático de ordenes
     long int n=back.retornaNumeroLineas();
@@ -22,7 +23,12 @@ int main(){
     back.cargarOrdenes(ordenes, n);
     back.ordenarPorFecha(ordenes,0,n-1); //Ordenamos con quick sort, declarando el TAD a utilizar para su compilación
 
+    //Las funcionalidades de la primera entrega se omitieron, si se desea acceder a estas se puede consultar
+    //el código de la primera entrega en https://www.onlinegdb.com/mBqPakq5T
 
+    
+    //SEGUNDA ENTREGA FINAL BST
+  
     //Creamos un arreglo dinámico temporal de Nuestros platillos, para eficientar el uso de memoria
     Platillo * platillos=new Platillo[n/10];
     int capacidad=back.llenaArregloPlatillos(ordenes, platillos, n);
@@ -73,7 +79,6 @@ int main(){
     cout<<"]";
 
     cout<<"\n-------------------IMPRIMIR ARBOL----------------------------\n";
-    //El arbol esta bien generado, el 89 simplemente fue un error de impresión, pero en el arbol.txt que se adjunta se puede ver que el árbol está bien construido
     ArbolBinario.imprimirArbol(ArbolBinario.cabeza);
 
     //Liberamos memoria
