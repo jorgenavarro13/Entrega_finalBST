@@ -11,6 +11,7 @@
 #include "LinkedPlatillos.h"
 #include "TreeNodeP.h"
 #include "BSTP.h"
+#include "Grafo.h"
 //Jorge Arturo Montiel Navarro A01278612
 using namespace std;
 
@@ -85,6 +86,46 @@ int main(){
     delete [] arregloInorden;
     delete [] arregloPostorden;
     delete[] platillos;
+
+
+    cout << "\n------------------- GRAFO DE RESTAURANTES -------------------\n";
+    
+    Grafo mapaRestaurantes;
+
+    //Llenar los nodos del grafo con los restaurantes de tus ordenes
+    cout << "Cargando restaurantes al grafo..." << endl;
+    for(int i = 0; i < n; i++) {
+        mapaRestaurantes.agregarNodo(ordenes[i].getRestaurante());
+    }
+
+    int totalNodosCargados = 20; 
+    
+    
+    for(int i=0; i < 50; i++){ 
+        int peso = (rand() % 15) + 1;
+        
+        // Conectar nodo i con i+1
+        mapaRestaurantes.agregarArista(i, i+1, peso);
+        
+        // Conectar nodo i con i+3 
+        mapaRestaurantes.agregarArista(i, i+3, peso + 5);
+    }
+
+    mapaRestaurantes.imprimirGrafo();
+
+    // 3. Probar Dijkstra
+    string inicio, fin;
+    cout << "\n--- BUSCAR RUTA MAS CORTA ---" << endl;
+    
+    if (cin.peek() == '\n') cin.ignore(); 
+
+    cout << "Ingrese nombre del restaurante origen: ";
+    getline(cin, inicio);
+    
+    cout << "Ingrese nombre del restaurante destino: ";
+    getline(cin, fin);
+
+    mapaRestaurantes.dijkstra(inicio, fin);
 
     //------------FUNCIONALIDADES OCULTAS-----------------
 
