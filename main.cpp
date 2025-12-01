@@ -12,7 +12,10 @@
 #include "TreeNodeP.h"
 #include "BSTP.h"
 #include "Grafo.h"
-//Jorge Arturo Montiel Navarro A01278612
+#include "GrafoRestaurantes.h"
+
+//Jorge Arturo Montiel Navarro  A01278612
+//Emilio Ogaz Galvan            A01572029
 using namespace std;
 
 int main(){
@@ -127,6 +130,21 @@ int main(){
     getline(cin, fin);
 
     mapaRestaurantes.dijkstra(inicio, fin);
+
+    // Prueba BFS
+    // ejemplo de creación y prueba
+    GrafoRestaurantes grafo;
+    grafo.agregarArista("McDonalds", "BurgerKing");
+    grafo.agregarArista("McDonalds", "PizzaHut");
+    grafo.agregarArista("PizzaHut", "Dominos");
+    grafo.agregarArista("Sushibar", "Okonomi"); // componente distinto
+
+    // Imprimir grafo (opcional)
+    grafo.imprimirGrafo();
+
+    // Prueba requerida: recorrido desde "McDonalds" hasta "Dominos" (imprime nodo)
+    grafo.recorridoBFS("McDonalds");            // sin objetivo: imprime todo el componente
+    grafo.recorridoBFS("McDonalds", "Dominos"); // imprime ruta McDonalds -> PizzaHut -> Dominos
     //------------FUNCIONALIDADES OCULTAS-----------------
 
 
