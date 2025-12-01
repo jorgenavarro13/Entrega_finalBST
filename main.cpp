@@ -90,43 +90,43 @@ int main(){
 
     cout << "\n------------------- GRAFO DE RESTAURANTES -------------------\n";
     
-    Grafo mapaRestaurantes;
+    Grafo mapaRestaurantes; 
 
-    //Llenar los nodos del grafo con los restaurantes de tus ordenes
-    cout << "Cargando restaurantes al grafo..." << endl;
+    cout << "Procesando " << n << " ordenes para crear el mapa..." << endl;
+    
     for(int i = 0; i < n; i++) {
         mapaRestaurantes.agregarNodo(ordenes[i].getRestaurante());
     }
 
-    int totalNodosCargados = 20; 
+    // Generar conexiones
+    int cantidadNodos = mapaRestaurantes.getNumNodos();
     
-    
-    for(int i=0; i < 50; i++){ 
+    for(int i=0; i < cantidadNodos; i++){ 
         int peso = (rand() % 15) + 1;
         
-        // Conectar nodo i con i+1
-        mapaRestaurantes.agregarArista(i, i+1, peso);
+        if(i + 1 < cantidadNodos) {
+            mapaRestaurantes.agregarArista(i, i+1, peso);
+        }
         
-        // Conectar nodo i con i+3 
-        mapaRestaurantes.agregarArista(i, i+3, peso + 5);
+        if(i + 3 < cantidadNodos) {
+            mapaRestaurantes.agregarArista(i, i+3, peso + 5); 
+        }
     }
 
     mapaRestaurantes.imprimirGrafo();
 
-    // 3. Probar Dijkstra
+    // Prueba Dijkstra
     string inicio, fin;
     cout << "\n--- BUSCAR RUTA MAS CORTA ---" << endl;
     
-    if (cin.peek() == '\n') cin.ignore(); 
-
+    // --- CÓDIGO CORREGIDO ---
     cout << "Ingrese nombre del restaurante origen: ";
-    getline(cin, inicio);
+    getline(cin, inicio); 
     
     cout << "Ingrese nombre del restaurante destino: ";
     getline(cin, fin);
 
     mapaRestaurantes.dijkstra(inicio, fin);
-
     //------------FUNCIONALIDADES OCULTAS-----------------
 
 

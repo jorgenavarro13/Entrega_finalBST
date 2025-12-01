@@ -13,14 +13,15 @@ Grafo::Grafo() {
 Grafo::~Grafo() {}
 
 void Grafo::agregarNodo(string nombre) {
-    if (numNodos < MAX_NODOS) {
-        if(encontrarIndice(nombre) == -1){
-            nombresRestaurantes[numNodos] = nombre;
-            numNodos++;
-        }
-    } else {
-        cout << "Error: Capacidad maxima de nodos alcanzada." << endl;
+    
+    if (encontrarIndice(nombre) != -1) {
+        return;
     }
+
+    if (numNodos < MAX_NODOS) {
+        nombresRestaurantes[numNodos] = nombre;
+        numNodos++;
+    } 
 }
 
 int Grafo::encontrarIndice(string nombre) {
@@ -39,8 +40,6 @@ void Grafo::agregarArista(string origen, string destino, int peso) {
     if (i != -1 && j != -1) {
         matrizAdyacencia[i][j] = peso;
         matrizAdyacencia[j][i] = peso; 
-    } else {
-        cout << "Error: Uno o ambos restaurantes no existen." << endl;
     }
 }
 
@@ -66,7 +65,7 @@ void Grafo::dijkstra(string origenStr, string destinoStr) {
     int dest = encontrarIndice(destinoStr);
 
     if (src == -1 || dest == -1) {
-        cout << "Restaurante de origen o destino no valido." << endl;
+        cout << "Restaurante no encontrado en el mapa." << endl;
         return;
     }
 
@@ -74,6 +73,7 @@ void Grafo::dijkstra(string origenStr, string destinoStr) {
     bool sptSet[MAX_NODOS]; 
     int parent[MAX_NODOS];  
 
+    // Inicializar
     for (int i = 0; i < numNodos; i++) {
         dist[i] = INF; 
         sptSet[i] = false;
@@ -124,7 +124,7 @@ void Grafo::dijkstra(string origenStr, string destinoStr) {
 }
 
 void Grafo::imprimirGrafo() {
-    cout << "\n--- Lista de Restaurantes en el Grafo ---" << endl;
+    cout << "\n--- Restaurantes Unicos Cargados (" << numNodos << ") ---" << endl;
     for (int i = 0; i < numNodos; i++) {
         cout << i << ": " << nombresRestaurantes[i] << endl;
     }
