@@ -10,6 +10,10 @@
 #include "Orden.h"
 #include "Platillo.h"
 #include "LinkedPlatillos.h"
+#include "unordered_set"
+#include "unordered_map"
+#include "queue"
+#include <vector>
 using namespace std;
 
 

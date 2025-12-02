@@ -1,0 +1,76 @@
+
+Proceso para la realización de la última entrega. 
+
+¿Qué se necesita? 
+Un grafo bipartito con elementos no repetidos en cada conjunto
+
+El primer conjunto es de tipo string Restaurantes
+El segundo conjunto es de tipo string Platillos
+
+La arista que une a cada restaurante es el número de veces que se pidió ese platillo en un restaurante específico, siendo el peso de la arista del grafo ponderado
+
+
+¿Qué se tiene? 
+Se tiene un arreglo estático de Orden ordenes [11000] que tienen la siguiente estructura por cada Orden,  y los atributos de este arreglo de ordenes ya están llenos
+
+class Orden{
+    public:
+        string mes;
+        int dia;
+        int hora;
+        int minuto;
+        int segundo;
+        string restaurante;
+        string platillo;
+        int precio;
+        
+        int mesInt;
+        int fechaSegundos;
+
+
+        Orden();
+        ~Orden();
+
+        //Constructor especializado
+        Orden(char *mes,char* dia, char* hora,char *minuto, char*segundo, char* restaurante, char* platillo,char* precio);
+
+
+        //Getters
+        string getMes();
+        int getDia();
+        int getHora();
+        int getMinuto();
+        int getSegundo();
+        string getRestaurante();
+        string getPlatillo();
+        int getPrecio();
+
+        //Getters especializados
+        int getMesInt();
+        int getFechaSegundos();
+
+        //Especializados
+        int mes_to_int(string mesV);
+};
+
+
+¿Cuál es el plan? 
+1.-
+Crear un unordered_set de platillos, que solo tenga valores de platillos y evitar duplicados.
+Otro unordered_set de restaurantes, que solo tenga restaurantes evitando duplicados.
+
+3.- Crear una clase grafo usando las unordered set. Dandole valor de cada nodo de acuerdo a los valores de la unordered set.
+
+
+2.-Recorrer ordenes[11000], elemento a elemento mediante un for hasta recorrer la longitud completa del arreglo.
+en cada objeto del arreglo obtener su atributo restaurante y el platillo. Ocupar esos datos y buscar su ubicación en los unordered_set
+
+3.- En el grafo buscar el platillo y el restaurante y si estos no tenían arista previa, crearla y si sí tenían, aumentar 1 al peso de esa arista
+
+4.-Iterar hasta llegar a la longitud de ordenes.
+
+5.-Hacer un BFS para buscar un resetaurante desde otro restaurante, ¿Cómo? Inicias el recorrido en un nodo restaurante, visitas los platillos que se sirvieron en ese restaurante y los pones en una cola, desde la cola visitar esos platillos que tienen más restaurante en lo que se pidieron, visitarlos y marcarlos como visitados. en un arreglo de true or false. Una vez terminada la búsqueda imprimir la ruta que se tomó para encontrar ese restaurante a partir de otro restaurante.
+
+
+
+

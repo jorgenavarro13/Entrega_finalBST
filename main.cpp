@@ -11,6 +11,9 @@
 #include "LinkedPlatillos.h"
 #include "TreeNodeP.h"
 #include "BSTP.h"
+#include <unordered_map>
+#include <unordered_set>
+#include <queue>
 //Jorge Arturo Montiel Navarro A01278612
 using namespace std;
 
@@ -29,8 +32,72 @@ int main(){
 
     //Tercera entrega final BST
     cout<<"\n-------------------TERCERA ENTREGA FINAL BST----------------------------\n";
+    unordered_map<string, unordered_map<string,int>> restToPlat;
+    for(int i=0; i<n; i++){
+        string restauranteActual=ordenes[i].getRestaurante();
+        string platilloActual=ordenes[i].getPlatillo();
+
+        //Insertamos en el mapa
+        restToPlat[restauranteActual][platilloActual]++;
+    }
+
+    //Construimos el mapa inverso platillo -> restaurantes
+
+    unordered_map<string, vector<string>> platToRest;
+
+    for (auto &rPair : restToPlat) {
+        const string &rest = rPair.first;
+
+        for (auto &pPair : rPair.second) {
+            const string &plat = pPair.first;
+            platToRest[plat].push_back(rest);
+        }
     
+    }
+
+    //Imprimimos el grafo de restaurantes y platillos con pesos
+    cout<<"\n-------------------GRAFO DE RESTAURANTES Y PLATILLOS----------------------------\n";
+
+    for (const auto &restPair : restToPlat) {  
+        const string &restaurante = restPair.first;  
+        const auto &adyacentes = restPair.second;
+
+        cout << restaurante << " -> ";
+
+        for (const auto &platPair : adyacentes) {
+            const string &platillo = platPair.first;
+            int peso = platPair.second;
+
+            cout << "(" << platillo << ", " << peso << ") ";
+        }
+
+        cout << endl;
+    }
     
+    // Otra manera de imprimir el grafo
+    for (auto &r : restToPlat) {
+        cout << r.first << ":\n";
+        for (auto &p : r.second)
+            cout << "  - " << p.first << " (" << p.second << ")\n";
+    }
+
+    
+    //Búsqueda de ruta entre restaurantes
+    string inicio, destino;
+    cout << "Ingrese el restaurante de inicio: ";
+    getline(cin, inicio);
+    cout << "Ingrese el restaurante de destino: ";
+    getline(cin, destino);
+    bool resultado = back.bfsRestaurante(inicio, destino, restToPlat, platToRest);
+    if (resultado) {
+        cout << "Se encontró una ruta entre " << inicio << " y " << destino << ".\n";
+    } else {
+        cout << "No se encontró una ruta entre " << inicio << " y " << destino << ".\n";
+    }
+
+
+
+        
     //SEGUNDA ENTREGA FINAL BST
   
     //Creamos un arreglo dinámico temporal de Nuestros platillos, para eficientar el uso de memoria
