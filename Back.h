@@ -9,6 +9,11 @@
 #include "Orden.h"
 #include "Platillo.h"
 #include "LinkedPlatillos.h"
+#include <unordered_map>
+#include <queue>
+#include <unordered_set>
+#include <algorithm>
+
 using namespace std;
 
 class Back{
@@ -79,7 +84,11 @@ class Back{
                 [](Platillo& p) { return p.getCantidad(); });
         }
 
-
+        bool bfsRestaurante(
+            const string &inicio,
+            const string &destino,
+            unordered_map<string, unordered_map<string,int>> &restToPlat,
+            unordered_map<string, vector<string>> &platToRest);
 
 
 

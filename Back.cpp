@@ -225,3 +225,62 @@ int Back::buscarInicio(Orden *ordenes, int n, int fechaInicio){
             }
             return ans;
         }
+
+bool Back::bfsRestaurante(
+    const string &inicio,
+    const string &destino,
+    unordered_map<string, unordered_map<string,int>> &restToPlat,
+    unordered_map<string, vector<string>> &platToRest)
+{
+    queue<string> q;
+    unordered_set<string> visitedRest;
+    unordered_set<string> visitedPlat;
+    unordered_map<string, string> parent;
+
+    q.push(inicio);
+    visitedRest.insert(inicio);
+
+    while (!q.empty()) {
+        string currentRest = q.front();
+        q.pop();
+
+        if (currentRest == destino) {
+            // Encontrado: imprimir ruta
+            vector<string> path;
+            string node = destino;
+
+            while (node != "") {
+                path.push_back(node);
+                node = parent[node];
+            }
+
+            reverse(path.begin(), path.end());
+            cout << "Ruta encontrada:\n";
+            for (auto &x : path) cout << x << " -> ";
+            cout << "FIN\n";
+
+            return true;
+        }
+
+        // 1. Restaurantes → Platillos
+        for (auto &p : restToPlat[currentRest]) {
+            string plat = p.first;
+
+            if (!visitedPlat.count(plat)) {
+                visitedPlat.insert(plat);
+
+                // 2. Platillos → Restaurantes
+                for (auto &restSig : platToRest[plat]) {
+                    if (!visitedRest.count(restSig)) {
+                        visitedRest.insert(restSig);
+                        parent[restSig] = currentRest;
+                        q.push(restSig);
+                    }
+                }
+            }
+        }
+    }
+
+    cout << "No existe conexión entre restaurantes.\n";
+    return false;
+}
