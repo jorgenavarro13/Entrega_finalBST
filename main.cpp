@@ -26,6 +26,10 @@ int main(){
     //Las funcionalidades de la primera entrega se omitieron, si se desea acceder a estas se puede consultar
     //el código de la primera entrega en https://www.onlinegdb.com/mBqPakq5T
 
+
+    //Tercera entrega final BST
+    cout<<"\n-------------------TERCERA ENTREGA FINAL BST----------------------------\n";
+    
     
     //SEGUNDA ENTREGA FINAL BST
   
@@ -85,6 +89,7 @@ int main(){
     delete [] arregloInorden;
     delete [] arregloPostorden;
     delete[] platillos;
+
 
     //------------FUNCIONALIDADES OCULTAS-----------------
 
