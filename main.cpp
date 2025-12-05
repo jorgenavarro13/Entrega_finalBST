@@ -45,6 +45,39 @@ int main(){
 
     unordered_map<string, vector<string>> platToRest;
 
+        // -------------------RESTAURANTE CON MÁS PEDIDOS DE UN PLATILLO----------------------------
+    
+    string platBuscado;
+    cout << "\nIngresa el nombre de un platillo para buscar el restaurante que más lo vende: ";
+    getline(cin, platBuscado);
+    
+    // Necesitamos ver qué restaurantes venden este platillo y cuántas veces
+    string mejorRestaurante = "";
+    int maxPedidos = 0;
+    
+    for (auto &rPair : restToPlat) {
+        const string &rest = rPair.first;
+        const auto &platMap = rPair.second;
+    
+        auto it = platMap.find(platBuscado);
+        if (it != platMap.end()) {
+            int cantidad = it->second;
+            if (cantidad > maxPedidos) {
+                maxPedidos = cantidad;
+                mejorRestaurante = rest;
+            }
+        }
+    }
+    
+    if (mejorRestaurante == "") {
+        cout << "Ningún restaurante tiene pedidos del platillo '" << platBuscado << "'.\n";
+    } else {
+        cout << "\nEl restaurante con más pedidos de '" << platBuscado << "' es:\n";
+        cout << " ➤ " << mejorRestaurante << " con " << maxPedidos << " pedidos.\n";
+    }
+    
+
+
     for (auto &rPair : restToPlat) {
         const string &rest = rPair.first;
 
@@ -54,7 +87,7 @@ int main(){
         }
     
     }
-
+/*
     //Imprimimos el grafo de restaurantes y platillos con pesos
     cout<<"\n-------------------GRAFO DE RESTAURANTES Y PLATILLOS----------------------------\n";
 
@@ -95,7 +128,7 @@ int main(){
         cout << "No se encontró una ruta entre " << inicio << " y " << destino << ".\n";
     }
 
-
+*/
 
         
     //SEGUNDA ENTREGA FINAL BST
