@@ -13,6 +13,7 @@
 #include "BSTP.h"
 #include "Grafo.h"
 #include "GrafoRestaurantes.h"
+#include "Analizador.h"
 
 //Jorge Arturo Montiel Navarro  A01278612
 //Emilio Ogaz Galvan            A01572029
@@ -145,6 +146,21 @@ int main(){
     // Prueba requerida: recorrido desde "McDonalds" hasta "Dominos" (imprime nodo)
     grafo.recorridoBFS("McDonalds");            // sin objetivo: imprime todo el componente
     grafo.recorridoBFS("McDonalds", "Dominos"); // imprime ruta McDonalds -> PizzaHut -> Dominos
+    
+    cout << "\n------------------- ANALISIS DE VENTAS -------------------\n";
+    
+    Analizador analista; // Creamos el objeto
+    string platilloAInvestigar;
+
+    cout << "Ingrese el nombre del platillo para buscar su mejor vendedor: " << endl;
+    // Usamos getline directo (sin ws ni ignore extra si ya vienes de otros getlines limpios)
+    getline(cin, platilloAInvestigar);
+
+    string mejorRestaurante = analista.encontrarMejorRestaurante(ordenes, n, platilloAInvestigar);
+
+    cout << "El restaurante que mas vende '" << platilloAInvestigar << "' es: " << endl;
+    cout << ">>> " << mejorRestaurante << " <<<" << endl;    
+
     //------------FUNCIONALIDADES OCULTAS-----------------
 
 
