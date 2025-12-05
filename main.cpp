@@ -157,6 +157,50 @@ int main(){
     delete [] arregloPostorden;
     delete[] platillos;
 
+    cout << "\n------------------- ESTADISTICA DE VENTAS -------------------\n";
+    
+    string platilloBuscado;
+    cout << "Ingrese el nombre exacto del platillo para buscar su mejor vendedor: ";
+    
+    // Limpiamos el buffer por seguridad antes de leer
+    if (cin.peek() == '\n') cin.ignore(); 
+    getline(cin, platilloBuscado);
+
+    // Usamos un mapa para contar ventas: Restaurante -> Cantidad
+    unordered_map<string, int> conteoVentas;
+    
+    // Variables para guardar al ganador
+    string mejorRestaurante = "No encontrado";
+    int maxVentas = -1;
+
+    // Recorremos TODAS las ordenes (Fuerza bruta sobre los datos cargados)
+    for(int i = 0; i < n; i++) {
+        // Si la orden actual coincide con el platillo buscado...
+        if(ordenes[i].getPlatillo() == platilloBuscado) {
+            
+            string restActual = ordenes[i].getRestaurante();
+            
+            // Sumamos 1 venta a este restaurante en el mapa
+            conteoVentas[restActual]++;
+
+            // Verificamos inmediatamente si este restaurante acaba de romper el récord
+            if(conteoVentas[restActual] > maxVentas) {
+                maxVentas = conteoVentas[restActual];
+                mejorRestaurante = restActual;
+            }
+        }
+    }
+
+    // Resultado
+    if(maxVentas > 0) {
+        cout << "\n>>> RESULTADO ENCONTRADO <<<" << endl;
+        cout << "El restaurante que mas vende '" << platilloBuscado << "' es:" << endl;
+        cout << "Restaurante: " << mejorRestaurante << endl;
+        cout << "Ventas totales: " << maxVentas << endl;
+    } else {
+        cout << "\nError: Ningun restaurante ha vendido el platillo '" << platilloBuscado << "'." << endl;
+        cout << "(Verifique mayusculas, minusculas y espacios)." << endl;
+    }
 
     //------------FUNCIONALIDADES OCULTAS-----------------
 
