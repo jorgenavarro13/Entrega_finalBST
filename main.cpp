@@ -14,6 +14,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <queue>
+
 //Jorge Arturo Montiel Navarro A01278612
 using namespace std;
 
@@ -41,14 +42,12 @@ int main(){
         restToPlat[restauranteActual][platilloActual]++;
     }
 
-    //Construimos el mapa inverso platillo -> restaurantes
-
-    unordered_map<string, vector<string>> platToRest;
+    
 
         // -------------------RESTAURANTE CON MÁS PEDIDOS DE UN PLATILLO----------------------------
     
     string platBuscado;
-    cout << "\nIngresa el nombre de un platillo para buscar el restaurante que más lo vende: ";
+    cout << "\nIngresa el nombre de un platillo para buscar el restaurante que tiene mayor cantidad de ventas: ";
     getline(cin, platBuscado);
     
     // Necesitamos ver qué restaurantes venden este platillo y cuántas veces
@@ -70,14 +69,15 @@ int main(){
     }
     
     if (mejorRestaurante == "") {
-        cout << "Ningún restaurante tiene pedidos del platillo '" << platBuscado << "'.\n";
+        cout << "No hay restaurante que tenga pedidos del platillo '" << platBuscado << "'.\n";
     } else {
-        cout << "\nEl restaurante con más pedidos de '" << platBuscado << "' es:\n";
-        cout << " ➤ " << mejorRestaurante << " con " << maxPedidos << " pedidos.\n";
+        cout << "\nEl restaurante con mayor cantidad de pedidos de '" << platBuscado << "' es:\n";
+        cout << " ->" << mejorRestaurante << " con " << maxPedidos << " pedidos.\n";
     }
     
 
-
+    //Construimos el mapa inverso platillo -> restaurantes
+    unordered_map<string, vector<string>> platToRest;
     for (auto &rPair : restToPlat) {
         const string &rest = rPair.first;
 
@@ -87,7 +87,13 @@ int main(){
         }
     
     }
-/*
+
+    string continuar;
+    cout<<"A continuación se imprimirá el grafo de restaurantes y platillos con pesos.\n";
+    cout << "\nTeclea cualquier tecla para continuar: ";
+    getline(cin, continuar);
+
+
     //Imprimimos el grafo de restaurantes y platillos con pesos
     cout<<"\n-------------------GRAFO DE RESTAURANTES Y PLATILLOS----------------------------\n";
 
@@ -107,6 +113,11 @@ int main(){
         cout << endl;
     }
     
+    string continuar4;
+    cout<<"Otra forma de imprimirlo es:\n";
+    cout << "\nTeclea cualquier tecla para continuar: ";
+    getline(cin, continuar4);
+
     // Otra manera de imprimir el grafo
     for (auto &r : restToPlat) {
         cout << r.first << ":\n";
@@ -123,13 +134,16 @@ int main(){
     getline(cin, destino);
     bool resultado = back.bfsRestaurante(inicio, destino, restToPlat, platToRest);
     if (resultado) {
-        cout << "Se encontró una ruta entre " << inicio << " y " << destino << ".\n";
+        cout << "No se tiene una ruta entre " << inicio << " y " << destino << ".\n";
     } else {
-        cout << "No se encontró una ruta entre " << inicio << " y " << destino << ".\n";
+        cout << "No se hay una ruta entre " << inicio << " y " << destino << ".\n";
     }
 
-*/
 
+    string continuar2;
+    
+    cout << "\nTeclea cualquier tecla para continuar con la impresión del arbol BST: ";
+    getline(cin, continuar2);
         
     //SEGUNDA ENTREGA FINAL BST
   

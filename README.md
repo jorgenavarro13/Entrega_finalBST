@@ -1,8 +1,3 @@
-¡Claro que sí\! Aquí tienes el `README.md` actualizado para reflejar exactamente la arquitectura que estás utilizando en esta rama (`dad8f64...`), donde el grafo se construye dinámicamente utilizando **Hash Maps** (`unordered_map`) en el `main.cpp` y el BFS se ejecuta desde `Back.cpp` para encontrar conexiones a través de platillos compartidos.
-
-Esta versión elimina las referencias a las clases `Grafo.h` (Matriz) o `GrafoRestaurantes.h` si no son las protagonistas de la ejecución principal, centrando la documentación en la lógica real de tu "Tercera Entrega".
-
------
 
 # Sistema de Gestión, Análisis de Órdenes y Conectividad (BST & Map-Based Graphs)
 
